@@ -1,7 +1,17 @@
-# Jason-Xing
-Quantitative Finance in Python #1
+Quantitative Finance in Python 
 
-This is tiny project used for finding the main driver in a grid in monthly price testing on IRP. 
+### HELPERS:
+
+1. Get the last business day of every month
+2. simple return and log return
+3. list all the file name and last modified datetime in a folder
+
+
+
+
+
+
+This is tiny project used for finding the main driver in a grid.
 
 Commonly used in IR Vol and Correlation. 
 
