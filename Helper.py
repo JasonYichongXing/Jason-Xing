@@ -64,3 +64,21 @@ def listfile(path):
         yield f, ftime
         
         
+        
+###############################
+# Combination. nCr
+############################### 
+from functools import lru_cache
+
+@lru_cache(maxsize = 1000)
+def comb(n, r):
+    if n < r:
+        return 0
+    if n == r or r == 0:
+        return 1
+    else:
+        return comb(n-1, r) + comb(n-1, r-1)
+    
+# can also use Scipy function:
+# from scipy.special import comb
+# comb(n, r)
