@@ -82,3 +82,31 @@ def comb(n, r):
 # can also use Scipy function:
 # from scipy.special import comb
 # comb(n, r)
+
+
+###############################
+# Transfer between 2D Grid <-> List
+###############################
+# By Default, i.e, Vol Surface, the column name of rawtable is 'Tenor' while the raw name is 'Expiry'
+#       T1Y   T2Y   T3Y   T4Y   T5Y   T7Y
+# Vega                                    
+# 1Y    0.76  0.25  0.77  0.83  0.91  0.03
+# 2Y    0.91  0.14  0.13  0.24  0.59  0.01
+# 3Y    0.65  0.86  0.55  0.52  0.53  0.79
+# 4Y    0.92  0.68  0.17  0.03  0.43  0.50
+#
+# unpivot is to transfer grid to list.
+# repivot is to tramsfer list back to grid.
+
+def unpivot(rawtable, row_name='Expiry', col_name='Tenor', val_name='Impact'):
+    table = rawtable.copy()
+    table[row_name] = table.index
+    return pd.melt(
+            table, id_vars=row_name, var_name=col_name, value_name=val_name)
+
+
+def repivot(list, val='Impact', ind='Expiry', col='Tenor'):
+    return list.pivot(values=val, index=ind, columns=col)
+
+
+
