@@ -50,9 +50,10 @@ def pct(data):
         
         
 ###############################
-# list file names and last modified time
+# 1. list file names and last modified time
+# 2. Rename multiple files
 ############################### 
-from os import listdir
+from os import listdir, rename
 from os.path import isfile, join, getmtime
 from datetime import datetime
 
@@ -63,10 +64,28 @@ def listfile(path):
             ftime = datetime.fromtimestamp(ftime).strftime('%y-%m-%d %H:%M:%S')
         yield f, ftime
         
+
+        
+        
+def str_SplitCap(name):
+    for word in name:
+        if word.lower() not in ['of', 'for', 'in', 'and', 'to', 'at']:
+            word = word.capitalize()
+        else:
+            word = word.lower()
+        yield word        
+        
+def filerename(path, filetype='pdf'):
+    for nfile in listfile(path):
+        bookname = nfile.split('.')[0]
+        ren = ' '.join(str_SplitCap(bookname.split(' ')))
+        rename(path+nfile, path+ren+'.'+filetype) 
         
         
 ###############################
-# Combination. nCr
+# couple recursive solutions:
+# 1. Combination. nCr
+# 2. Catalan number
 ############################### 
 from functools import lru_cache
 
@@ -83,6 +102,16 @@ def comb(n, r):
 # from scipy.special import comb
 # comb(n, r)
 
+
+
+def catalan(n):
+    if n == 0:
+        return 1
+    
+    cat = 0
+    for i in range(n):
+        cat += catalan(i) * catalan(n-i-1)
+    return cat
 
 ###############################
 # Transfer between 2D Grid <-> List
